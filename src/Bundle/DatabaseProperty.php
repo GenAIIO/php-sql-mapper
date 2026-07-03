@@ -27,12 +27,21 @@ class DatabaseProperty extends AbstractProperty
     private $dsn;
     private $username;
     private $password;
+    private $sslCa;
+    private $sslVerify;
 
     public function bindData(Map $data)
     {
         $this->dsn      = $data->get('dsn');
         $this->username = $data->get('username');
         $this->password = $data->get('password');
+        // MySQL/TLS options — ignored by SQLite. ssl_ca is a path to the CA cert
+        // (a hosted MySQL like Aiven ships a ca.pem and requires TLS); ssl_verify
+        // = "0" skips server-cert verification (leave unset/anything else to verify).
+        $ca = $data->get('ssl_ca');
+        $this->sslCa = ($ca === null) ? '' : $ca;
+        $verify = $data->get('ssl_verify');
+        $this->sslVerify = !($verify === '0' || $verify === 0 || $verify === false);
     }
 
     public function getDsn()
@@ -48,5 +57,17 @@ class DatabaseProperty extends AbstractProperty
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /** Path to the TLS CA certificate (MySQL); '' = none. */
+    public function getSslCa()
+    {
+        return $this->sslCa;
+    }
+
+    /** Whether to verify the server certificate (MySQL); default true. */
+    public function getSslVerify()
+    {
+        return $this->sslVerify;
     }
 }
