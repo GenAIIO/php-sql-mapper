@@ -1,0 +1,24 @@
+{
+    "name": "genai/sql-mapper-demo",
+    "type": "project",
+    "repositories": [
+        { "type": "path", "url": ".." },
+        { "type": "path", "url": "../../php-attribute" },
+        { "type": "path", "url": "../../php-container" },
+        { "type": "path", "url": "../../php-property" },
+        { "type": "path", "url": "../../php-di" }
+    ],
+    "require": {
+        "genai/sql-mapper": "*",
+        "genai/attribute": "*",
+        "genai/container": "*",
+        "genai/property": "*",
+        "genai/di": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Demo\\": "fixtures",
+            "Cache\\": "cache/"
+        }
+    }
+}

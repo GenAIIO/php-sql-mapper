@@ -1,0 +1,17 @@
+<?php
+
+namespace GenAI\SqlMapper\Attribute;
+
+use GenAI\SqlMapper\Processor\Statement;
+
+/**
+ * #[Delete('DELETE FROM users WHERE id = #{id}')] on a #[Mapper] method. The
+ * compiled method returns the affected-row count (PDOStatement::rowCount())
+ * after executing.
+ *
+ * BUILD-TIME ONLY (PHP 8).
+ */
+#[\Attribute(\Attribute::TARGET_METHOD)]
+class Delete extends Statement
+{
+}

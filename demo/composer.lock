@@ -1,0 +1,235 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "9b1bad18f46824c0d2cbc74f86daa19f",
+    "packages": [
+        {
+            "name": "genai/attribute",
+            "version": "1.0.0",
+            "dist": {
+                "type": "path",
+                "url": "../../php-attribute",
+                "reference": "546c4cef96ee3fb4b421b3c2a5437d14264738ab"
+            },
+            "require": {
+                "php": ">=8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GenAI\\Attribute\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Build-time attribute scanner that dispatches custom attributes to your handlers. PHP 8 only; it emits no runtime code itself — your handlers feed the PHP 5.3-safe *Register dumpers.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "genai/container",
+            "version": "1.0.0",
+            "dist": {
+                "type": "path",
+                "url": "../../php-container",
+                "reference": "fd041e50ec0843e1298f91416e0b638f88ad518c"
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "psr/container": "1.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GenAI\\Container\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Minimal PSR-11 dependency-injection container, compatible with PHP 5.3.29",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "genai/di",
+            "version": "1.0.0",
+            "dist": {
+                "type": "path",
+                "url": "../../php-di",
+                "reference": "6c0425fa5c599224b4d04a89bcd1e6f8d02b3781"
+            },
+            "require": {
+                "genai/attribute": "*",
+                "genai/container": "*",
+                "php": ">=8.0"
+            },
+            "type": "library",
+            "extra": {
+                "genai": {
+                    "processors": [
+                        "GenAI\\Di\\Processor\\ComponentProcessor"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GenAI\\Di\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Popular DI attributes (#[Service], #[Repository], #[Configuration], #[Bean], #[Value]) and their processor, targeting GenAI\\Container. Build-time (PHP 8).",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "genai/property",
+            "version": "1.0.0",
+            "dist": {
+                "type": "path",
+                "url": "../../php-property",
+                "reference": "40b16ae985402a1ea48d6c60bc82eeab020252b0"
+            },
+            "require": {
+                "genai/container": "*",
+                "php": ">=5.3.0"
+            },
+            "suggest": {
+                "genai/attribute": "PHP 8 build-time #[Property] scanning via GenAI\\Property\\Attribute\\PropertyProcessor (the runtime stays PHP 5.3)."
+            },
+            "type": "library",
+            "extra": {
+                "genai": {
+                    "processors": [
+                        "GenAI\\Property\\Attribute\\PropertyProcessor"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GenAI\\Property\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Compile-time config (.env / .ini) binder: compiles #[Property] classes into a container fragment so config resolves as DI beans. Runtime is PHP 5.3.29.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "genai/sql-mapper",
+            "version": "1.0.0",
+            "dist": {
+                "type": "path",
+                "url": "..",
+                "reference": "dd6ebc4091aded55622e0138b4630a11c22996cb"
+            },
+            "require": {
+                "ext-pdo": "*",
+                "genai/property": "*",
+                "php": ">=5.3.0"
+            },
+            "suggest": {
+                "genai/attribute": "PHP 8 build-time #[Mapper] scanning via GenAI\\SqlMapper\\Processor\\MapperProcessor (the runtime stays PHP 5.3).",
+                "genai/boot": "The Kernel reads extra.genai.scan to auto-discover the database bundle.",
+                "genai/di": "Build-time scanning of the bundled #[Configuration]/#[Bean] that registers the \\PDO bean (PHP 8)."
+            },
+            "type": "library",
+            "extra": {
+                "genai": {
+                    "processors": [
+                        "GenAI\\SqlMapper\\Processor\\MapperProcessor"
+                    ],
+                    "scan": [
+                        "GenAI\\SqlMapper\\Bundle"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GenAI\\SqlMapper\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "MyBatis-style SQL mapper: mark an interface #[Mapper] and its methods #[Select]/#[Insert]/#[Update]/#[Delete] with the SQL. A build-time processor compiles a reflection-free Cache\\<Name> implementation (prepared statements, #{name} bound params, optional row->object hydration) and registers it as a container bean keyed by the interface. Self-contained: a bundled DatabaseConfig provides the 'PDO' bean from a [database] group in the app's app.ini, so you only edit config. Runtime is PHP 5.3-safe.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "psr/container",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/container.git",
+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Container\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common Container Interface (PHP FIG PSR-11)",
+            "homepage": "https://github.com/php-fig/container",
+            "keywords": [
+                "PSR-11",
+                "container",
+                "container-interface",
+                "container-interop",
+                "psr"
+            ],
+            "support": {
+                "issues": "https://github.com/php-fig/container/issues",
+                "source": "https://github.com/php-fig/container/tree/master"
+            },
+            "time": "2017-02-14T16:28:37+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {},
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {},
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
+}

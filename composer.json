@@ -1,0 +1,34 @@
+{
+    "name": "genai/sql-mapper",
+    "version": "1.0.0",
+    "description": "MyBatis-style SQL mapper: mark an interface #[Mapper] and its methods #[Select]/#[Insert]/#[Update]/#[Delete] with the SQL. A build-time processor compiles a reflection-free Cache\\<Name> implementation (prepared statements, #{name} bound params, optional row->object hydration) and registers it as a container bean keyed by the interface. Self-contained: a bundled DatabaseConfig provides the 'PDO' bean from a [database] group in the app's app.ini, so you only edit config. Runtime is PHP 5.3-safe.",
+    "type": "library",
+    "license": "MIT",
+    "repositories": [
+        { "type": "path", "url": "../php-attribute" },
+        { "type": "path", "url": "../php-container" },
+        { "type": "path", "url": "../php-di" },
+        { "type": "path", "url": "../php-property" }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "ext-pdo": "*",
+        "genai/property": "*"
+    },
+    "suggest": {
+        "genai/attribute": "PHP 8 build-time #[Mapper] scanning via GenAI\\SqlMapper\\Processor\\MapperProcessor (the runtime stays PHP 5.3).",
+        "genai/di": "Build-time scanning of the bundled #[Configuration]/#[Bean] that registers the \\PDO bean (PHP 8).",
+        "genai/boot": "The Kernel reads extra.genai.scan to auto-discover the database bundle."
+    },
+    "extra": {
+        "genai": {
+            "processors": ["GenAI\\SqlMapper\\Processor\\MapperProcessor"],
+            "scan": ["GenAI\\SqlMapper\\Bundle"]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "GenAI\\SqlMapper\\": "src/"
+        }
+    }
+}
